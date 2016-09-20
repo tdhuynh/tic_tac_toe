@@ -25,12 +25,18 @@ def display(board):
 display(game_board)
 
 
-# win_condition = [["00", "01", "02"], ["10", "11", "12"], ["20", "21", "22"], ["00", "10", "20"], ["01", "11", "21"], ["02", "12", "22"]]
-# def win():
+def x_turn():
+    x_move = input("X's move -- pick a coordinate: ")
+    game_board[x_move] = "X"
+    display(game_board)
+    o_turn()
 
+def o_turn():
+    o_move = input("O's move -- pick a coordinate: ")
+    print(used_coord)
+    game_board[o_move] = "O"
+    display(game_board)
+    x_turn()
 
-
-# x_move = str(input("Your move: "))
-#
-# if x_move in game_board:
-#     game_board = game_board[x_move]
+print("Player X will go first.")
+x_turn()
