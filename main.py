@@ -8,13 +8,10 @@
 # print board with input
 # check for win, if no win, player x
 
-# game_board = {"00": " ", "01": " ", "02": " ",
-#               "10": " ", "11": " ", "12": " ",
-#               "20": " ", "21": " ", "22": " "}
-
-game_board = [[' ', ' ', ' '],
+game_board = [['X', 'X', 'X'],
               [' ', ' ', ' '],
               [' ', ' ', ' ']]
+
 
 # display(board) modeled after printBoard(board) from Chapter 5 of
 #       book "Automate the Boring Stuff with Python" by Albert Sweigart.
@@ -27,20 +24,15 @@ def display(board):
     print('   ---+---+---')
     print("2  " + board[2][0] + "  |" + board[2][1] + "  |" + board[2][2])
 
-display(game_board)
-
-
-# def x_turn():
-#     x_move = input("X's move -- pick a coordinate: ")
-#     game_board[x_move] = "X"
-#     display(game_board)
-#     o_turn()
-#
-# def o_turn():
-#     o_move = input("O's move -- pick a coordinate: ")
-#     game_board[o_move] = "O"
-#     display(game_board)
-#     x_turn()
+# still working on win conditions
+# def win_check():
+#      for condition in win_conditions:
+#          if all(game_board[condition] == "X" for coord in condition):
+#              print("X wins!")
+#          elif all(game_board[condition] == "O" for coord in condition):
+#              print("O wins!")
+#          else:
+#              continue
 
 def player_turn(player):
     try:
@@ -58,7 +50,7 @@ def player_turn(player):
         return player_turn(player)
 
     display(game_board)
-
+#    win_check(player)
     if player == "X":
         return player_turn("O")
     else:
@@ -68,5 +60,5 @@ print("Player X will go first.\n")
 print("""Type in row then column of board with no space.
 '00' is top left, '12' is center right, etc.\n""")
 
-for turn in range(9):
-    player_turn("X")
+display(game_board)
+player_turn("X")
