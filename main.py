@@ -43,8 +43,14 @@ display(game_board)
 #     x_turn()
 
 def player_turn(player):
-    row, col = input("{}'s move: ".format(player))
-    row, col = int(row), int(col)
+    try:
+        row, col = input("{}'s move: ".format(player))
+        row, col = int(row), int(col)
+    except ValueError:
+        print("Try again. Row number then column number (00, 11, 22, etc.)")
+        display(game_board)
+        return player_turn(player)
+
     if game_board[row][col] == " ":
         game_board[row][col] = "{}".format(player)
     else:
