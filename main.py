@@ -1,17 +1,9 @@
-# game start, print empty board
 
-# player x input two digits
-# print board with input
-# check for win, if no win, player o
-
-# player o input
-# print board with input
-# check for win, if no win, player x
+import sys
 
 game_board = [[' ', ' ', ' '],
               [' ', ' ', ' '],
               [' ', ' ', ' ']]
-
 
 # display(board) modeled after printBoard(board) from Chapter 5 of
 #       book "Automate the Boring Stuff with Python" by Albert Sweigart.
@@ -24,41 +16,61 @@ def display(board):
     print('   ---+---+---')
     print("2  " + board[2][0] + "  |" + board[2][1] + "  |" + board[2][2])
 
-# still working on win conditions
-# def win_check():
-#      for condition in win_conditions:
-#          if all(game_board[condition] == "X" for coord in condition):
-#              print("X wins!")
-#          elif all(game_board[condition] == "O" for coord in condition):
-#              print("O wins!")
-#          else:
-#              continue
+def game_start():
+    print("Player X will go first.\n")
+    print("""Type in row then column of board with no space.
+    '00' is top left, '12' is center right, etc.\n""")
+    display(game_board)
+    player_turn("X")
+
+def new_game():
+    game_board = [[' ', ' ', ' '],
+                  [' ', ' ', ' '],
+                  [' ', ' ', ' ']]
+    game_start()
 
 def player_turn(player):
     try:
         row, col = input("{}'s move: ".format(player))
         row, col = int(row), int(col)
-    except ValueError:
+    except (IndexError, ValueError):
         print("Try again. Row number then column number (00, 11, 22, etc.)")
         display(game_board)
-        return player_turn(player)
-
+        player_turn(player)
     if game_board[row][col] == " ":
         game_board[row][col] = "{}".format(player)
     else:
         print("This coordinate has been taken. Choose another!")
-        return player_turn(player)
-
+        player_turn(player)
     display(game_board)
-#    win_check(player)
+    win_condition(game_board, row, col, player)
+    next_player(player)
+
+def next_player(player):
     if player == "X":
-        return player_turn("O")
+        player_turn("O")
     else:
-        return player_turn("X")
+        player_turn("X")
 
-print("Player X will go first.\n")
-print("""Type in row then column of board with no space.
-'00' is top left, '12' is center right, etc.\n""")
+def win_condition(game_board, row, col, player):
+    if player == game_board[row][0] == game_board[row][1] == game_board[row][2]:
+        win_check(player)
+    if player == game_board[0][col] == game_board[1][col] == game_board[2][col]:
+        win_check(player)
+    if player == game_board[0][0] == game_board[1][1] == game_board[2][2]:
+        win_check(player)
+    if player == game_board[2][0] == game_board[1][1] == game_board[0][2]:
+        win_check(player)
 
-display(game_board)
-player_turn("X")
+def win_check(player):
+    print("{} wins!".format(player))
+    new_game()
+
+def play_again():
+    replay = input("Would you like to play again? [y/N] ")
+    if replay.lower() == "y":
+        game_start()
+    else:
+        sys.exit()
+
+game_start()
