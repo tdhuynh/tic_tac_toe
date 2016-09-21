@@ -8,7 +8,7 @@
 # print board with input
 # check for win, if no win, player x
 
-game_board = [['X', 'X', 'X'],
+game_board = [[' ', ' ', ' '],
               [' ', ' ', ' '],
               [' ', ' ', ' ']]
 
