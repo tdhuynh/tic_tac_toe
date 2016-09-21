@@ -9,7 +9,7 @@
 # check for win, if no win, player x
 
 
-# board inspiration from book ""
+# board inspiration from book "Automate the Boring Stuff with Python" by Albert Sweigart
 game_board = {"00": " ", "01": " ", "02": " ",
               "10": " ", "11": " ", "12": " ",
               "20": " ", "21": " ", "22": " "}
