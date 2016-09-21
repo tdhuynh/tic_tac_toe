@@ -25,18 +25,32 @@ def display(board):
 display(game_board)
 
 
-def x_turn():
-    x_move = input("X's move -- pick a coordinate: ")
-    game_board[x_move] = "X"
-    display(game_board)
-    o_turn()
+# def x_turn():
+#     x_move = input("X's move -- pick a coordinate: ")
+#     game_board[x_move] = "X"
+#     display(game_board)
+#     o_turn()
+#
+# def o_turn():
+#     o_move = input("O's move -- pick a coordinate: ")
+#     game_board[o_move] = "O"
+#     display(game_board)
+#     x_turn()
 
-def o_turn():
-    o_move = input("O's move -- pick a coordinate: ")
-    print(used_coord)
-    game_board[o_move] = "O"
+def player_turn(player):
+    player_move = input("{}'s move -- pick a coordinate: ".format(player.upper()))
+    game_board[player_move] = "{}".format(player.upper())
     display(game_board)
-    x_turn()
+    if player.upper() == "X":
+        player = "O"
+        return player_turn(player)
+    else:
+        player = "X"
+        return player_turn(player)
+
+
 
 print("Player X will go first.")
-x_turn()
+
+while True:
+    player_turn("X")
